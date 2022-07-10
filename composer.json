@@ -1,0 +1,47 @@
+{
+    "name": "motomedialab/laravel-vite-helper",
+    "description": "A helper method to generate absolute asset URL's to Vite assets",
+    "keywords": [
+        "motomedialab",
+        "laravel-vite-helper"
+    ],
+    "homepage": "https://github.com/motomedialab/laravel-vite-helper",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Chris Page",
+            "email": "chris@motocom.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^9.19"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.5.21"
+    },
+    "autoload": {
+        "psr-4": {
+            "Motomedialab\\LaravelViteHelper\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Motomedialab\\LaravelViteHelper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

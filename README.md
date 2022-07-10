@@ -1,8 +1,7 @@
 # Laravel `vite()` helper method
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/motomedialab/laravel-vite-helper.svg?style=flat-square)](https://packagist.org/packages/motomedialab/laravel-vite-helper)
-[![Total Downloads](https://img.shields.io/packagist/dt/motomedialab/laravel-vite-helper.svg?style=flat-square)](https://packagist.org/packages/motomedialab/laravel-vite-helper)
-[![Build Status](https://img.shields.io/travis/motomedialab/laravel-vite-helper/master.svg?style=flat-square)](https://travis-ci.org/motomedialab/laravel-vite-helper)  
+[![Total Downloads](https://img.shields.io/packagist/dt/motomedialab/laravel-vite-helper.svg?style=flat-square)](https://packagist.org/packages/motomedialab/laravel-vite-helper) 
 ![GitHub Actions](https://github.com/motomedialab/laravel-vite-helper/actions/workflows/main.yml/badge.svg)
 
 A super simple Laravel helper to fill the void that Laravel Mix left. Mix had a helper, aptly named `mix()`

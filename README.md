@@ -1,16 +1,15 @@
-# Laravel vite() helper method
+# Laravel `vite()` helper method
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/motomedialab/laravel-vite-helper.svg?style=flat-square)](https://packagist.org/packages/motomedialab/laravel-vite-helper)
 [![Total Downloads](https://img.shields.io/packagist/dt/motomedialab/laravel-vite-helper.svg?style=flat-square)](https://packagist.org/packages/motomedialab/laravel-vite-helper)
 [![Build Status](https://img.shields.io/travis/motomedialab/laravel-vite-helper/master.svg?style=flat-square)](https://travis-ci.org/motomedialab/laravel-vite-helper)  
 ![GitHub Actions](https://github.com/motomedialab/laravel-vite-helper/actions/workflows/main.yml/badge.svg)
 
-A super simple Laravel helper to fill the void that Laravel Mix left. Laravel Mix had a helper, aptly named `mix()`
-that would return an absolute URL to the mix resource.
+A super simple Laravel helper to fill the void that Laravel Mix left. Mix had a helper, aptly named `mix()`
+that would return an absolute URL to the mix resource.  With the introduction of Vite (as of Laravel 9.19),
+there is no equivalent for Vite, at least, until now.
 
-With the introduction of Vite (as of Laravel 9.19), there is no equivalent for Vite, at least, until now.
-
-This was originally submitted as a [pull request](https://github.com/laravel/framework/pull/43098) to the core Laravel framework,
+This was originally submitted as a [PR](https://github.com/laravel/framework/pull/43098) to the core Laravel framework,
 but unfortunately wasn't deemed as a necessary addition.
 
 ## Installation

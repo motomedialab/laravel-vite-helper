@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author MotoMediaLab <hello@motomedialab.com>
  * Created at: 10/07/2022
@@ -15,11 +16,12 @@ class LaravelViteHelper
      *
      * @param  string  $resourcePath
      * @param  string  $buildDirectory
+     * @param  bool    $relative  Whether to return a relative path or absolute path
      * @return string
      *
      * @throws \Exception
      */
-    public function resourceUrl($resourcePath, $buildDirectory = 'build')
+    public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false)
     {
         if ($hotServer = $this->hotServer()) {
             return "$hotServer/$resourcePath";
@@ -31,7 +33,11 @@ class LaravelViteHelper
             throw new \Exception('Unknown Vite entrypoint '.$resourcePath);
         }
 
-        return asset(Str::start($buildDirectory.'/'.$manifest[$resourcePath]['file'], '/'));
+        if ($relative) {
+            return Str::start($buildDirectory . '/' . $manifest[$resourcePath]['file'], '/');
+        } else {
+            return asset(Str::start($buildDirectory . '/' . $manifest[$resourcePath]['file'], '/'));
+        }
     }
 
     /**

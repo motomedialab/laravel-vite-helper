@@ -24,8 +24,15 @@ composer require motomedialab/laravel-vite-helper
 The usage for this helper is extremely simple, and directly replaces Laravel's `mix()` helper.
 
 ```php
-// will return the compiled asset path for 'resources/css/app.css'
+// will return the absolute compiled asset path for 'resources/css/app.css'
 vite('resources/css/app.css');
+
+// will return the absolute compiled asset path for
+// 'resources/css/app.css' with custom build directory 'dist'
+vite('resources/css/app.css', 'dist');
+
+// the third argument enforces a relative path to be returned
+vite('resources/css/app.css', 'build', true);
 ```
 
 ### Testing

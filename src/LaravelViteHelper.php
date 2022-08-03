@@ -33,11 +33,9 @@ class LaravelViteHelper
             throw new \Exception('Unknown Vite entrypoint '.$resourcePath);
         }
 
-        if ($relative) {
-            return Str::start($buildDirectory . '/' . $manifest[$resourcePath]['file'], '/');
-        } else {
-            return asset(Str::start($buildDirectory . '/' . $manifest[$resourcePath]['file'], '/'));
-        }
+        $path = Str::start($buildDirectory . '/' . $manifest[$resourcePath]['file'], '/');
+        
+        return $relative ? $path : asset($path);
     }
 
     /**

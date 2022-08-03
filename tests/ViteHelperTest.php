@@ -56,6 +56,15 @@ class ViteHelperTest extends TestCase
 
         $this->assertEquals('https://example.com/build/assets/app.versioned.css', $result);
     }
+    
+    public function testHelperCanReturnRelativePath()
+    {
+        $this->makeViteManifest();
+    
+        $result = vite('resources/css/app.css', 'build', true);
+    
+        $this->assertEquals('/build/assets/app.versioned.css', $result);
+    }
 
     public function testUnknownBuildFileThrowsException()
     {

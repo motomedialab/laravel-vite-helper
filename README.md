@@ -35,6 +35,38 @@ vite('resources/css/app.css', 'dist');
 vite('resources/css/app.css', 'build', true);
 ```
 
+### Mocking in your own tests
+
+Using this helper may cause some tests that directly interact with your web pages to break if you don't have the
+compiled assets available (e.g. in a CI/CD flow).
+
+To overcome this, there's a `MocksViteHelper` trait that can be used within your tests:
+
+```php
+class ExampleTest extends TestCase
+{
+    use MocksViteHelper;
+    
+    public function a_request_to_a_view_using_vite_helper()
+    {
+        $this->withoutViteHelper();
+
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+    
+    public function restore_vite_helper_functionality()
+    {
+        $this->withViteHelper();
+
+        $response = $this->get('/');
+
+        $response->assertStatus(500);
+    }
+}
+```
+
 ### Testing
 
 ```bash

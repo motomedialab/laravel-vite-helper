@@ -16,11 +16,12 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "laravel/framework": "^9.19|^10.0"
+        "php": "^8.1",
+        "laravel/framework": "^10.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.5",
+        "orchestra/testbench": "^8.0",
         "phpunit/phpunit": "^9.5.21"
     },
     "autoload": {

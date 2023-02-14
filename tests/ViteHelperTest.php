@@ -6,15 +6,17 @@
 
 namespace Motomedialab\LaravelViteHelper\Tests;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Motomedialab\LaravelViteHelper\LaravelViteHelper;
-use Illuminate\Routing\UrlGenerator;
-use PHPUnit\Framework\TestCase;
 use Mockery as m;
+use Orchestra\Testbench\TestCase;
 
 class ViteHelperTest extends TestCase
 {
     protected function setUp(): void
     {
+        parent::setUp();
+        
         app()->instance('url', tap(
             m::mock(UrlGenerator::class),
             fn ($url) => $url

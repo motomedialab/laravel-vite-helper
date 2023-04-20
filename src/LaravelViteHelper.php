@@ -17,15 +17,15 @@ class LaravelViteHelper
      * @param  string  $resourcePath
      * @param  string  $buildDirectory
      * @param  bool    $relative  Whether to return a relative path or absolute path
-     * @param  bool    $hotServer  Force enable/disble the hot server
+     * @param  bool    $hotServer  Force enable/disable the hot server
      * @return string
      *
      * @throws \Exception
      */
     public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false, $hotServer = true)
     {
-        if ($hotServer = $this->hotServer() &&  $hotServer = true) {
-            return "$hotServer/$resourcePath";
+        if ($hotServer && $server = $this->hotServer()) {
+            return "$server/$resourcePath";
         }
 
         $manifest = $this->manifestContents($buildDirectory);

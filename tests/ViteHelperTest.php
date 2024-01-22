@@ -41,6 +41,16 @@ class ViteHelperTest extends TestCase
         $this->assertEquals('http://localhost:3000/resources/css/app.css', $result);
     }
 
+    public function testViteForcdBuildServerUrl()
+    {
+        $this->makeViteHotFile();
+        $this->makeViteManifest();
+
+        $result = (new LaravelViteHelper)->resourceUrl('resources/css/app.css', hotServer: false);
+
+        $this->assertEquals('https://example.com/build/assets/app.versioned.css', $result);
+    }
+
     public function testViteBuildSingleFileManifestResolution()
     {
         $this->makeViteManifest();

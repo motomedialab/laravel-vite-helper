@@ -25,7 +25,7 @@ class LaravelViteHelper
     public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false, $hotServer = true)
     {
         if ($hotServer && ($server = $this->hotServer())) {
-            return "{$hotServerUrl}/{$resourcePath}";
+            return "$server/$resourcePath";
         }
 
         $manifest = $this->manifestContents($buildDirectory);

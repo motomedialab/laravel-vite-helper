@@ -24,7 +24,7 @@ class LaravelViteHelper
      */
     public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false, $hotServer = true)
     {
-        if ($hotServer && $server = $this->hotServer()) {
+        if ($hotServer && ($server = $this->hotServer())) {
             return "$server/$resourcePath";
         }
 

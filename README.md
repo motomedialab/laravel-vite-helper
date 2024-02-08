@@ -33,6 +33,15 @@ vite('resources/css/app.css', 'dist');
 
 // the third argument enforces a relative path to be returned
 vite('resources/css/app.css', 'build', true);
+
+// the final argument allows you to force disable hot server mode and always return the manifest path
+vite('resources/css/app.css', 'build', true, true);
+
+// you can also use named arguments as below
+vite('resources/css/app.css', buildDirectory: 'dist', relative: true, hotServer: true);
+
+// and even supply an array to get an array of paths/URLs
+vite(['resources/css/app.css', 'resources/js/app.js']);
 ```
 
 ### Mocking in your own tests

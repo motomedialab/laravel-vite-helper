@@ -22,6 +22,6 @@ if (! function_exists('vite')) {
         /** @var Vite $vite */
         $vite = app(\Motomedialab\LaravelViteHelper\LaravelViteHelper::class);
 
-        return $vite->resourceUrl($resourcePath, $buildDirectory, $relative,  $hotServer);
+        return $vite->resourceUrl($resourcePath, $buildDirectory, $relative, $hotServer);
     }
 }

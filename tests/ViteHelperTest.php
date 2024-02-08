@@ -1,7 +1,6 @@
 <?php
 /**
  * @author MotoMediaLab <hello@motomedialab.com>
- * Created at: 10/07/2022
  */
 
 namespace Motomedialab\LaravelViteHelper\Tests;
@@ -60,6 +59,37 @@ class ViteHelperTest extends TestCase
         $this->assertEquals('https://example.com/build/assets/app.versioned.css', $result);
     }
 
+    public function testViteHotModuleArrayOfInputs()
+    {
+        $this->makeViteHotFile();
+
+        $result = (new LaravelViteHelper)->resourceUrl([
+            'resources/css/app.css',
+            'resources/js/app.js',
+        ]);
+
+
+        $this->assertEquals([
+            'http://localhost:3000/resources/css/app.css',
+            'http://localhost:3000/resources/js/app.js',
+        ], $result);
+    }
+
+    public function testViteManifestAcceptsArrayOfInputs()
+    {
+        $this->makeViteManifest();
+
+        $result = (new LaravelViteHelper)->resourceUrl([
+            'resources/css/app.css',
+            'resources/js/app.js',
+        ]);
+
+        $this->assertEquals([
+            'https://example.com/build/assets/app.versioned.css',
+            'https://example.com/build/assets/app.versioned.js',
+        ], $result);
+    }
+
     public function testHelperMethodReturnsResult()
     {
         $this->makeViteManifest();
@@ -99,6 +129,9 @@ class ViteHelperTest extends TestCase
         $manifest = json_encode([
             'resources/css/app.css' => [
                 'file' => 'assets/app.versioned.css',
+            ],
+            'resources/js/app.js' => [
+                'file' => 'assets/app.versioned.js',
             ]
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 

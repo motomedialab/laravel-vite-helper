@@ -2,7 +2,6 @@
 
 /**
  * @author MotoMediaLab <hello@motomedialab.com>
- * Created at: 10/07/2022
  */
 
 namespace Motomedialab\LaravelViteHelper;
@@ -14,35 +13,39 @@ class LaravelViteHelper
     /**
      * Retrieve a single Vite absolute resource URL.
      *
-     * @param  string  $resourcePath
-     * @param  string  $buildDirectory
-     * @param  bool    $relative  Whether to return a relative path or absolute path
-     * @param  bool    $hotServer  Force enable/disable the hot server
-     * @return string
+     * @param string|array $resourcePath
+     * @param string $buildDirectory
+     * @param bool $relative Whether to return a relative path or absolute path
+     * @param bool $hotServer Force enable/disable the hot server
+     * @return string|array
      *
      * @throws \Exception
      */
     public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false, $hotServer = true)
     {
+        $arrayable = is_array($resourcePath);
+        $resourcePath = $arrayable ? $resourcePath : [$resourcePath];
+
         if ($hotServer && ($server = $this->hotServer())) {
-            return "$server/$resourcePath";
+            $result = array_map(fn ($path) => "$server/$path", $resourcePath);
+
+            return $arrayable ? $result : $result[0];
         }
 
         $manifest = $this->manifestContents($buildDirectory);
 
-        if (! isset($manifest[$resourcePath]['file'])) {
-            throw new \Exception('Unknown Vite entrypoint '.$resourcePath);
-        }
+        $result = array_map(
+            fn ($path) => $this->resolveResourcePath($path, $manifest, $buildDirectory, $relative),
+            $resourcePath
+        );
 
-        $path = Str::start($buildDirectory . '/' . $manifest[$resourcePath]['file'], '/');
-        
-        return $relative ? $path : asset($path);
+        return $arrayable ? $result : $result[0];
     }
 
     /**
      * Retrieve our manifest file contents.
      *
-     * @param  string  $buildDirectory
+     * @param string $buildDirectory
      * @return array
      *
      * @throws \Exception
@@ -51,10 +54,10 @@ class LaravelViteHelper
     {
         static $manifests = [];
 
-        $manifestPath = public_path($buildDirectory.'/manifest.json');
+        $manifestPath = public_path($buildDirectory . '/manifest.json');
 
-        if (! isset($manifests[$manifestPath])) {
-            if (! is_file($manifestPath)) {
+        if (!isset($manifests[$manifestPath])) {
+            if (!is_file($manifestPath)) {
                 throw new \Exception("Vite manifest not found at: {$manifestPath}");
             }
 
@@ -76,5 +79,27 @@ class LaravelViteHelper
         }
 
         return null;
+    }
+
+    /**
+     * Resolve the resource path.
+     *
+     * @param string $path
+     * @param array $manifest
+     * @param string $buildDirectory
+     * @param bool $relative
+     * @return string
+     *
+     * @throws \Exception
+     */
+    private function resolveResourcePath($path, $manifest, $buildDirectory, $relative)
+    {
+        if (!isset($manifest[$path]['file'])) {
+            throw new \Exception('Unknown Vite entrypoint ' . $path);
+        }
+
+        $path = Str::start($buildDirectory . '/' . $manifest[$path]['file'], '/');
+
+        return $relative ? $path : asset($path);
     }
 }

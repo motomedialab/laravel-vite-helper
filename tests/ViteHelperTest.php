@@ -15,7 +15,7 @@ class ViteHelperTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         app()->instance('url', tap(
             m::mock(UrlGenerator::class),
             fn ($url) => $url
@@ -35,7 +35,7 @@ class ViteHelperTest extends TestCase
     {
         $this->makeViteHotFile();
 
-        $result = (new LaravelViteHelper)->resourceUrl('resources/css/app.css');
+        $result = (new LaravelViteHelper())->resourceUrl('resources/css/app.css');
 
         $this->assertEquals('http://localhost:3000/resources/css/app.css', $result);
     }
@@ -45,7 +45,7 @@ class ViteHelperTest extends TestCase
         $this->makeViteHotFile();
         $this->makeViteManifest();
 
-        $result = (new LaravelViteHelper)->resourceUrl('resources/css/app.css', hotServer: false);
+        $result = (new LaravelViteHelper())->resourceUrl('resources/css/app.css', hotServer: false);
 
         $this->assertEquals('https://example.com/build/assets/app.versioned.css', $result);
     }
@@ -54,7 +54,7 @@ class ViteHelperTest extends TestCase
     {
         $this->makeViteManifest();
 
-        $result = (new LaravelViteHelper)->resourceUrl('resources/css/app.css');
+        $result = (new LaravelViteHelper())->resourceUrl('resources/css/app.css');
 
         $this->assertEquals('https://example.com/build/assets/app.versioned.css', $result);
     }
@@ -63,7 +63,7 @@ class ViteHelperTest extends TestCase
     {
         $this->makeViteHotFile();
 
-        $result = (new LaravelViteHelper)->resourceUrl([
+        $result = (new LaravelViteHelper())->resourceUrl([
             'resources/css/app.css',
             'resources/js/app.js',
         ]);
@@ -79,7 +79,7 @@ class ViteHelperTest extends TestCase
     {
         $this->makeViteManifest();
 
-        $result = (new LaravelViteHelper)->resourceUrl([
+        $result = (new LaravelViteHelper())->resourceUrl([
             'resources/css/app.css',
             'resources/js/app.js',
         ]);
@@ -98,13 +98,13 @@ class ViteHelperTest extends TestCase
 
         $this->assertEquals('https://example.com/build/assets/app.versioned.css', $result);
     }
-    
+
     public function testHelperCanReturnRelativePath()
     {
         $this->makeViteManifest();
-    
+
         $result = vite('resources/css/app.css', 'build', true);
-    
+
         $this->assertEquals('/build/assets/app.versioned.css', $result);
     }
 

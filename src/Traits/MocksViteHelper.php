@@ -18,7 +18,7 @@ trait MocksViteHelper
         }
 
         app()->instance(LaravelViteHelper::class, new class () extends LaravelViteHelper {
-            public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false)
+            public function resourceUrl($resourcePath, $buildDirectory = 'build', $relative = false, $hotServer = true)
             {
                 return '';
             }

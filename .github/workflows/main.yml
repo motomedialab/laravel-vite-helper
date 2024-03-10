@@ -14,7 +14,7 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 php: [8.0,8.1,8.2]
-                laravel: [8.*,9.*,10.*]
+                laravel: [8.*,9.*,10.*,11.*]
                 stability: [prefer-stable]
                 exclude:
                     # Exclude Laravel 9 with PHP 8.0

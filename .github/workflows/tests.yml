@@ -2,34 +2,37 @@ name: run-tests
 
 on:
   push:
-    branches:
-      - master
+    branches: [main]
   pull_request:
-    branches:
-      - master
+    branches: [main]
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.0, 8.1, 8.2, 8.3, 8.4]
-        laravel: ['8.*', '9.*', '10.*', '11.*', '12.*']
+        php: [8.1,8.2,8.3,8.4,8.5]
+        laravel: [9.*,10.*,11.*,12.*,13.*]
         stability: [prefer-stable]
         exclude:
+          - laravel: 9.*
+            php: 8.0
           - laravel: 10.*
             php: 8.0
           - laravel: 11.*
             php: 8.0
           - laravel: 11.*
             php: 8.1
-          - laravel: 12.*
-            php: 8.0
+          - laravel: 11.*
+            php: 8.5
           - laravel: 12.*
             php: 8.1
+          - laravel: 13.*
+            php: 8.1
+          - laravel: 13.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -41,18 +44,16 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          #          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
-
       - name: Execute tests
         run: vendor/bin/phpunit
